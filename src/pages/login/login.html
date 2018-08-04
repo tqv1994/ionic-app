@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login Page
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="_loginForm" (ngSubmit)="onSubmit(_loginForm.value)">
+  	<ion-item class="form-group" [ngClass]="{'has-danger': !_isValid('username')}">
+  		<ion-label>Username</ion-label>
+  		<ion-input class="form-control" type="text" placeholder="Username" [formControl]="_loginForm.controls['username']" [ngClass]="{'form-control-danger': !_isValid('username')}" name="username" ></ion-input>
+  		<div class="error">
+  			<span class="help-block help-block-error" *ngIf="!_formErrors.username?.valid">{{_formErrors.username?.message}}</span>
+  		</div>
+  	</ion-item>
+  	<ion-item class="form-group" [ngClass]="{'has-danger': !_isValid('password')}">
+  		<ion-label>Password</ion-label>
+  		<ion-input class="form-control" type="password" placeholder="Password" [formControl]="_loginForm.controls['password']" [ngClass]="{'form-control-danger': !_isValid('password')}" name="password" ></ion-input>
+  		<div class="error">
+  			<span class="help-block help-block-error" *ngIf="!_formErrors.password?.valid">{{_formErrors.password?.message}}</span>
+  		</div>
+  	</ion-item>
+  	
+  	<ion-item class="form-group">
+  		<button ion-button type="submit" class="btn btn-primary px-2" [disabled]="!_loginForm.valid || _submitted == true">Login</button>
+  		<div *ngIf="_errorMessage" class="col-xs-12 error-block mt-h">
+            <div class="alert alert-danger">{{_errorMessage}}</div>
+        </div>
+  	</ion-item>
+  </form>
+</ion-content>
