@@ -31,7 +31,7 @@ export class LoginPage {
             // skip loop if the property is from prototype
             if (!errorFields.hasOwnProperty(key)) continue;
 
-            let message = errorFields[key];
+            let message = typeof errorFields[key] == "object" ? errorFields[key][0] : errorFields[key];
             this._formErrors[key].valid = false;
             this._formErrors[key].message = message;
         }
@@ -76,17 +76,31 @@ export class LoginPage {
         this._restUserProvider.login(elementValues.username, elementValues.password)
             .subscribe(
                 result => {
-                	console.log(result);
-                    // if(result.success) {
+                    console.log(result);
+                    if(result.success) {
 
-                    //     this.navCtrl.push(HomePage);
-                    // } else {
-                    //     this._errorMessage = 'Username or password is incorrect.';
-                    //     this._submitted = false;
-                    // }
+                        this.navCtrl.push(HomePage);
+                    } else {
+                        this._errorMessage = 'Username or password is incorrect.';
+                        this._submitted = false;
+                    }
+                },
+                error=>{
+                    this._submitted = false;
+                    console.log(error);
+                    // Validation error
+                    if(error.status == 422) {
+                        this._resetFormErrors();
+                        // this._errorMessage = "There was an error on submission. Please check again.";
+                        let errorFields = JSON.parse(error.data.message);
+                        this._setFormErrors(errorFields);
+                    } else {
+                        this._errorMessage = error.data;
+                    }
                 }
                     
             )
+                
     }
 
 }

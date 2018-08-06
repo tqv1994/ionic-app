@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
+import { map, catchError } from 'rxjs/operators';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { RestProvider} from './../rest/rest';
 /*
   Generated class for the RestUserProvider provider.
@@ -22,7 +25,9 @@ export class RestUserProvider extends RestProvider {
   	public redirectURL = '';
 
   	public login(username, password) {
-        return this.http.post(this.apiUrl+'user/login',{"LoginForm":{ "username": username,"password": password}});
+        return this.http.post(this.apiUrl+'user/login',{"LoginForm":{ "username": username,"password": password}}).pipe(
+            map(res=>JSON.parse(res._body)),catchError(this.handleError)
+          );
   	}
 
   	public getToken(): any {
@@ -43,7 +48,8 @@ export class RestUserProvider extends RestProvider {
     private handleError(error: Response | any) {
         let errorMessage: any = {};
         // Connection error
-        if (error.status == 0) {
+        let errorBody = JSON.parse(error._body);
+        if (errorBody.status == 0) {
             errorMessage = {
                 success: false,
                 status: 0,
@@ -51,9 +57,9 @@ export class RestUserProvider extends RestProvider {
             };
         }
         else {
-            errorMessage = error;
+            errorMessage = errorBody;
         }
-        return errorMessage;
+        return Observable.throw(errorMessage);
     }
 
 }

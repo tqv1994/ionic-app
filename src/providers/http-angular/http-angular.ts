@@ -26,7 +26,7 @@ export class HttpAngularProvider {
         // requestOptions.headers.append("Access-Control-Allow-Credentials",'false');
         let body = this.JSON_to_URLEncoded(params);
 
-        return this.http.post(url, body, requestOptions).map(resp => options.responseType == 'text' ? resp.text() : resp.json());
+        return this.http.post(url, body, requestOptions).map(resp => resp);
     }
 
     private createSearchParams(params: any) {
