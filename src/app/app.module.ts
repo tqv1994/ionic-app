@@ -15,11 +15,13 @@ import {HTTP} from '@ionic-native/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { HoaDonBanPage } from '../pages/hoa-don-ban/hoa-don-ban';
 import { RestProvider } from '../providers/rest/rest';
 import { RestUserProvider } from '../providers/rest-user/rest-user';
 import { HttpProvider } from '../providers/http/http';
 import { HttpAngularProvider } from '../providers/http-angular/http-angular';
 import { HttpNativeProvider } from '../providers/http-native/http-native';
+import { HoaDonBanProvider } from '../providers/hoa-don-ban/hoa-don-ban';
 
 // export function httpInterceptorFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, storage: Storage) {
 //   return new HttpInterceptor(xhrBackend, requestOptions, storage);
@@ -29,7 +31,8 @@ import { HttpNativeProvider } from '../providers/http-native/http-native';
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    HoaDonBanPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { HttpNativeProvider } from '../providers/http-native/http-native';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    HoaDonBanPage
   ],
   providers: [
     StatusBar,
@@ -61,7 +65,8 @@ import { HttpNativeProvider } from '../providers/http-native/http-native';
     RestUserProvider,
     HttpProvider,
     HttpAngularProvider,
-    HttpNativeProvider
+    HttpNativeProvider,
+    HoaDonBanProvider
   ]
 })
 export class AppModule {}

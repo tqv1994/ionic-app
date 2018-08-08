@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { RestUserProvider } from '../../providers/rest-user/rest-user';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { HomePage } from '../home/home';
+import { HoaDonBanPage } from '../hoa-don-ban/hoa-don-ban';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -79,7 +80,7 @@ export class LoginPage {
                     console.log(result);
                     if(result.success) {
 
-                        this.navCtrl.push(HomePage);
+                        this.navCtrl.push(HoaDonBanPage);
                     } else {
                         this._errorMessage = 'Username or password is incorrect.';
                         this._submitted = false;

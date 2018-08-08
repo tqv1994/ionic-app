@@ -6,6 +6,8 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { RestProvider} from './../rest/rest';
+import {tokenNotExpired} from 'angular2-jwt';
+import { LoginPage } from '../../pages/login/login';
 /*
   Generated class for the RestUserProvider provider.
 
@@ -26,21 +28,38 @@ export class RestUserProvider extends RestProvider {
 
   	public login(username, password) {
         return this.http.post(this.apiUrl+'user/login',{"LoginForm":{ "username": username,"password": password}}).pipe(
-            map(res=>JSON.parse(res._body)),catchError(this.handleError)
+            map(res=>JSON.parse(res._body)),map(res=>{
+              if (res.success) {
+                    localStorage.setItem('backend-token', res.data.access_token);
+                    this.loggedIn = true;
+                } else {
+                    localStorage.removeItem('backend-token');
+                    this.loggedIn = false;
+                }
+                return res;
+            }),catchError(this.handleError)
           );
   	}
 
   	public getToken(): any {
-        //return localStorage.getItem('backend-token');
+        return localStorage.getItem('backend-token');
     }
 
     private checkToken(): any {
-        //return !!localStorage.getItem('backend-token');
+        return !!localStorage.getItem('backend-token');
     }
 
   	public isLoggedIn(): boolean {
-  		return false;
-        //return tokenNotExpired('backend-token');
+        return tokenNotExpired('backend-token');
+    }
+
+    public logout(): void {
+        localStorage.removeItem('backend-token');
+        this.loggedIn = false;
+    }
+
+    public unauthorizedAccess(error: any): void {
+        this.logout();
     }
 
     

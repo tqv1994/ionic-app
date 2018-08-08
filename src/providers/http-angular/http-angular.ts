@@ -8,9 +8,13 @@ export class HttpAngularProvider {
     constructor(public http: Http) {}
 
     public get(url, params?: any, options: any = {}) {
-        let requestOptions = new RequestOptions();
-        requestOptions.withCredentials = true;
+        let requestOptions = new RequestOptions(options);
 
+        requestOptions.withCredentials = false;
+        if(!requestOptions.headers){
+            requestOptions.headers = new Headers();
+        }
+        console.log(requestOptions.headers.get('Authorization'));
         requestOptions.params = params ? this.createSearchParams(params) : requestOptions.params;
 
         return this.http.get(url, requestOptions).map(resp => options.responseType == 'text' ? resp.text() : resp.json());

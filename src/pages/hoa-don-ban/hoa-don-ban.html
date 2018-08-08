@@ -1,0 +1,33 @@
+<!--
+  Generated template for the HoaDonBanPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>HoaDonBan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div *ngIf="_errorMessage">
+	    <div >
+	        <p class="alert alert-danger">{{_errorMessage}}</p>
+	    </div>
+	</div>
+
+	<div class="animated fadeIn" *ngIf="!_hoaDonBans && !_errorMessage">
+	    <span class="spinner"></span>
+	</div>
+	<div class="animated fadeIn" *ngIf="_hoaDonBans">
+		<ion-list>
+			<button ion-item *ngFor="let item of _hoaDonBans" >
+			   {{ item.hoa_don_ban_id }}
+			</button>
+		</ion-list>
+	</div>
+</ion-content>
