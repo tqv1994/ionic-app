@@ -1,32 +1,34 @@
 import {Injectable} from '@angular/core';
 import {Http, RequestOptions, ResponseContentType, URLSearchParams, Headers} from '@angular/http';
-
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HttpAngularProvider {
-    constructor(public http: Http) {}
+    constructor(public http: HttpClient) {}
 
     public get(url, params?: any, options: any = {}) {
-        let requestOptions = new RequestOptions(options);
+        let requestOptions = options;
 
-        requestOptions.withCredentials = false;
+        // requestOptions.withCredentials = false;
         if(!requestOptions.headers){
-            requestOptions.headers = new Headers();
+            requestOptions.headers = new HttpHeaders();
         }
-        console.log(requestOptions.headers.get('Authorization'));
-        requestOptions.params = params ? this.createSearchParams(params) : requestOptions.params;
-
-        return this.http.get(url, requestOptions).map(resp => options.responseType == 'text' ? resp.text() : resp.json());
+        // requestOptions.params = params ? this.createSearchParams(params) : requestOptions.params;
+        //let body = this.JSON_to_URLEncoded(params);
+        console.log(requestOptions);
+        return this.http.get(url, requestOptions).map(resp => resp);
     }
 
     public post(url, params: any, options: any = {}) {
-        let requestOptions = new RequestOptions();
+        let requestOptions = options;
         requestOptions.withCredentials = false;
         if(!requestOptions.headers){
-        	requestOptions.headers = new Headers();
+        	requestOptions.headers = new HttpHeaders({"Content-Type":"application/x-www-form-urlencoded"});
         }
-        requestOptions.headers.append("Content-Type","application/x-www-form-urlencoded");
+        requestOptions.headers.set("Content-Type","application/x-www-form-urlencoded");
+        console.log(requestOptions.headers.get('Content-Type'));
         // requestOptions.headers.append("Access-Control-Allow-Credentials",'false');
         let body = this.JSON_to_URLEncoded(params);
 

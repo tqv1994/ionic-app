@@ -23,9 +23,13 @@ import { HttpAngularProvider } from '../providers/http-angular/http-angular';
 import { HttpNativeProvider } from '../providers/http-native/http-native';
 import { HoaDonBanProvider } from '../providers/hoa-don-ban/hoa-don-ban';
 
-// export function httpInterceptorFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, storage: Storage) {
-//   return new HttpInterceptor(xhrBackend, requestOptions, storage);
-// }
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    noJwtError: true,
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => localStorage.getItem('backend-token')),
+  }), http);
+}
 
 @NgModule({
   declarations: [
@@ -54,11 +58,11 @@ import { HoaDonBanProvider } from '../providers/hoa-don-ban/hoa-don-ban';
   providers: [
     StatusBar,
     SplashScreen,
-   /* {
-      provide: Http,
-      useFactory: httpInterceptorFactory,
-      deps: [XHRBackend, RequestOptions, Storage]
-    },*/
+    {
+      provide: AuthHttp,
+      useFactory: getAuthHttp,
+      deps: [Http]
+    },
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,

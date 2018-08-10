@@ -12,6 +12,6 @@ export class RestProvider {
     
   }
 
-  public apiUrl = "http://bh.absoft.com.vn/backend/web/index.php?r=v1/";
+  public apiUrl = "v1/";
 
 }

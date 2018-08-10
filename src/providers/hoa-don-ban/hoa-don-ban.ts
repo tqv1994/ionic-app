@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {AuthHttp} from 'angular2-jwt';
 import { HttpProvider } from '../http/http';
 import {Observable} from 'rxjs/Rx';
 import { map, catchError } from 'rxjs/operators';
@@ -23,8 +24,8 @@ export class HoaDonBanProvider extends RestProvider{
     console.log('Hello HoaDonBanProvider Provider');
   }
 
-  private getHeaders():Headers {
-    return new Headers({
+  private getHeaders():HttpHeaders {
+    return new HttpHeaders({
         'Authorization': 'Bearer '+this.restUser.getToken(),
     });
   }
