@@ -40,7 +40,7 @@ export class HoaDonBanProvider extends RestProvider{
                 headers: headers
             }
         ).pipe(
-        	map(response => response.json())
+        	  map(response => response)
             ,map((response) => {
                 return <HoaDonBan[]>response.data;
             })

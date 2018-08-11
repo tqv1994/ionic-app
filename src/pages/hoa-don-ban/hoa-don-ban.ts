@@ -24,6 +24,18 @@ export class HoaDonBanPage {
 
   private _hoaDonBans: HoaDonBan[];
   private _errorMessage : string = '';
+  private _columns = [
+    {name:'Số HĐ',prop:'hoa_don_ban_id'},
+    {name: 'Ngày',prop: 'ngay'},
+    {name: 'Tổng tiền',prop:'tong_gia_tri'},
+    {name: 'Tên khách',prop:'ten_doi_tuong'},
+    {name: 'Địa chỉ',prop:'dia_chi'},
+    {name: 'Điện thoại',prop:'dien_thoai'},
+    {name: 'Người bán',prop:'ten_nhan_vien'},
+    {name: 'Options',prop:'options'}
+  ];
+  private _rows = [];
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HoaDonBanPage');
@@ -33,7 +45,19 @@ export class HoaDonBanPage {
   public getHoaDonBans(){
   	this._hoaDonBans = null;
   	this.hoaDonBanProvider.getAllProjects().subscribe(res=>{
-  		this._hoaDonBans = res
+  		this._hoaDonBans = <HoaDonBan[]>res;
+      for (let i in this._hoaDonBans) {
+        let hoaDonBan = this._hoaDonBans[i];
+        this._rows.push({hoa_don_ban_id: hoaDonBan.hoa_don_ban_id,
+            ngay: hoaDonBan.ngay,
+            tong_gia_tri: hoaDonBan.tong_gia_tri,
+            ten_doi_tuong: hoaDonBan.ten_doi_tuong,
+            dia_chi: hoaDonBan.dia_chi,
+            dien_thoai: hoaDonBan.dien_thoai,
+            ten_nhan_vien: hoaDonBan.ten_nhan_vien,
+            options:"<ng-template><button md-raised-button color='warn'>Delete</button></ng-template>"
+          });
+      }
   	},error=>{
   		// unauthorized access
         if(error.status == 401 || error.status == 403) {

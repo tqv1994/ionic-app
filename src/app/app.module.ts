@@ -4,13 +4,13 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {HttpModule, XHRBackend, RequestOptions, Http} from '@angular/http';
-import {HttpInterceptor} from '../auth/http.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AuthModule } from './auth.module';
-import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpClientModule } from '@angular/common/http';
 import {Storage, IonicStorageModule} from '@ionic/storage';
 import {HTTP} from '@ionic-native/http';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -23,13 +23,6 @@ import { HttpAngularProvider } from '../providers/http-angular/http-angular';
 import { HttpNativeProvider } from '../providers/http-native/http-native';
 import { HoaDonBanProvider } from '../providers/hoa-don-ban/hoa-don-ban';
 
-export function getAuthHttp(http) {
-  return new AuthHttp(new AuthConfig({
-    noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => localStorage.getItem('backend-token')),
-  }), http);
-}
 
 @NgModule({
   declarations: [
@@ -46,7 +39,8 @@ export function getAuthHttp(http) {
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    NgxDatatableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,11 +52,6 @@ export function getAuthHttp(http) {
   providers: [
     StatusBar,
     SplashScreen,
-    {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    },
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,

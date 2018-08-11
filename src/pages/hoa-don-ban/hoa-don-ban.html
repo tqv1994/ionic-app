@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>HoaDonBan</ion-title>
+    <ion-title>Hóa đơn bán</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,10 +24,16 @@
 	    <span class="spinner"></span>
 	</div>
 	<div class="animated fadeIn" *ngIf="_hoaDonBans">
-		<ion-list>
-			<button ion-item *ngFor="let item of _hoaDonBans" >
-			   {{ item.hoa_don_ban_id }}
-			</button>
-		</ion-list>
+		<ngx-datatable
+		[sortType]="'multi'"
+		[headerHeight]="50"
+       	[footerHeight]="50"
+       	[rowHeight]="50"
+       	[columnMode]="'force'"
+        [rows]="_rows"
+        [columns]="_columns"
+        [limit]="10">
+       
+      </ngx-datatable>
 	</div>
 </ion-content>

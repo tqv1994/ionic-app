@@ -7,8 +7,8 @@
   "pro_id": "8c39ca9e",
   "proxies": [
     {
-      "path": "/v1",
-      "proxyUrl": "http://bh.absoft.com.vn/backend/web/index.php?r=v1"
+      "path": "/api",
+      "proxyUrl": "http://bh.absoft.com.vn/backend/web/index.php"
     }
   ]
 }
