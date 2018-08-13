@@ -53,7 +53,7 @@ export class HoaDonBanProvider extends RestProvider{
 
         let errorMessage:any = {};
         // Connection error
-        let errorBody = JSON.parse(error._body);
+        let errorBody = error.error;
         if(error.status == 0) {
             errorMessage = {
                 success: false,

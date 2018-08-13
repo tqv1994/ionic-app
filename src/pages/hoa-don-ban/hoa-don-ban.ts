@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { LoginPage } from '../../pages/login/login';
 import { RestUserProvider } from '../../providers/rest-user/rest-user';
 import { HoaDonBanProvider } from '../../providers/hoa-don-ban/hoa-don-ban';
 import { HoaDonBan } from '../../models/hoa-don-ban';
@@ -61,7 +62,9 @@ export class HoaDonBanPage {
   	},error=>{
   		// unauthorized access
         if(error.status == 401 || error.status == 403) {
+            console.log(error.status);
             this.restUserProvider.unauthorizedAccess(error);
+            this.navCtrl.push(LoginPage);
         } else {
             this._errorMessage = error.data.message;
         }
