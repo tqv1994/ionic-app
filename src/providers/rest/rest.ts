@@ -12,6 +12,6 @@ export class RestProvider {
     
   }
 
-  public apiUrl = "api?r=v1/";
+  public apiUrl = "api/";
 
 }

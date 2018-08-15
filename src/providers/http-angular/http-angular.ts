@@ -16,8 +16,9 @@ export class HttpAngularProvider {
             requestOptions.headers = new HttpHeaders();
         }
         // requestOptions.params = params ? this.createSearchParams(params) : requestOptions.params;
-        //let body = this.JSON_to_URLEncoded(params);
-        console.log(requestOptions);
+        if(params)
+            url = url + '?' + this.JSON_to_URLEncoded(params);
+        
         return this.http.get(url, requestOptions).map(resp => resp);
     }
 
@@ -28,7 +29,7 @@ export class HttpAngularProvider {
         	requestOptions.headers = new HttpHeaders({"Content-Type":"application/x-www-form-urlencoded"});
         }
         requestOptions.headers.set("Content-Type","application/x-www-form-urlencoded");
-        console.log(requestOptions.headers.get('Content-Type'));
+        // console.log(requestOptions.headers.get('Content-Type'));
         // requestOptions.headers.append("Access-Control-Allow-Credentials",'false');
         let body = this.JSON_to_URLEncoded(params);
 

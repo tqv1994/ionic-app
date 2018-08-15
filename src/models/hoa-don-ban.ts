@@ -1,3 +1,4 @@
+import { HoaDonBanChiTiet } from './hoa-don-ban-chi-tiet';
 export class HoaDonBan{
     hoa_don_ban_id: string = "";
     ngay: string = "";
@@ -24,6 +25,7 @@ export class HoaDonBan{
     chuyen_khoan: number = 0;
     ban_id: number = 0;
     trang_thai_cho: boolean = false;
+    hoaDonBanChiTiets: HoaDonBanChiTiet[] = [];
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

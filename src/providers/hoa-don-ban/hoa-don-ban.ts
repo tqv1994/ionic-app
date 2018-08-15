@@ -31,11 +31,11 @@ export class HoaDonBanProvider extends RestProvider{
   }
 
   // GET /v1/hoa-don-ban
-    public getAllProjects(){
+    public getAllHoaDonBans(){
         let headers = this.getHeaders();
 
         return this.http.get(
-            this.apiUrl+'hoa-don-ban',{},
+            this.apiUrl+'hoa-don-ban',null,
             {
                 headers: headers
             }
@@ -47,6 +47,24 @@ export class HoaDonBanProvider extends RestProvider{
             ,catchError(this.handleError)
         );
             
+    }
+
+    // GET /v1/hoa-don-ban/1
+    public getHoaDonBan(id: string,params?:object){
+      let headers = this.getHeaders();
+
+        return this.http.get(
+            this.apiUrl+'hoa-don-ban/'+id,params,
+            {
+                headers: headers
+            }
+        ).pipe(
+            map(response => response)
+            ,map((response) => {
+                return <HoaDonBan>response.data;
+            })
+            ,catchError(this.handleError)
+        );
     }
 
     private handleError (error: Response | any) {

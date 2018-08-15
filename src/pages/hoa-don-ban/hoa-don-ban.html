@@ -29,10 +29,13 @@
 		[headerHeight]="50"
        	[footerHeight]="50"
        	[rowHeight]="50"
-       	[columnMode]="'force'"
         [rows]="_rows"
         [columns]="_columns"
-        [limit]="10">
+        [limit]="10"
+        [columnMode]="flex"
+        [scrollbarV]="false"
+        [scrollbarH]="true"
+        (activate)="onEventTable($event)">
        
       </ngx-datatable>
 	</div>
