@@ -3,32 +3,31 @@ import { CurrencyPipe } from '@angular/common';
 import { ModalController, Platform, NavParams, ViewController, NavController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { RestUserProvider } from '../../providers/rest-user/rest-user';
-import { HoaDonBanProvider } from '../../providers/hoa-don-ban/hoa-don-ban';
-import { HoaDonBan } from '../../models/hoa-don-ban';
-import { ViewHoaDonBanPage } from './view-hoa-don-ban';
+import { HangTonDauKyProvider } from '../../providers/hang-ton-dau-ky/hang-ton-dau-ky';
+import { HangTonDauKy } from '../../models/hang-ton-dau-ky';
 /**
- * Generated class for the HoaDonBanPage page.
+ * Generated class for the HangTonDauKyPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
 @Component({
-  selector: 'page-hoa-don-ban',
-  templateUrl: 'hoa-don-ban.html',
+  selector: 'page-hang-ton-dau-ky',
+  templateUrl: 'hang-ton-dau-ky.html',
 })
-export class HoaDonBanPage {
+export class HangTonDauKyPage {
 
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams, 
-  	private hoaDonBanProvider: HoaDonBanProvider,
+  	private hangTonDauKyProvider: HangTonDauKyProvider,
   	private restUserProvider: RestUserProvider,
     public modalCtrl: ModalController) {
   }
 
-  private _hoaDonBans: HoaDonBan[];
+  private _hangTonDauKys: HangTonDauKy[];
   private _errorMessage : string = '';
-
+  
   private _customTable = {
     columns: <{name: string, prop: string}[]>[],
     rows:[],
@@ -39,20 +38,21 @@ export class HoaDonBanPage {
     offset:<number>0,
     sorts: <{prop:string,dir: string}[]>[]
   }
+
   private _dataParams = {
     page:1,
-    sort: '-ngay'
+    sort: ''
   }
+
 
   ionViewDidLoad() {
     this._customTable.columns = [
-      {name:'Số HĐ',prop:'hoa_don_ban_id'},
-      {name: 'Ngày',prop: 'ngay'},
-      {name: 'Tổng tiền',prop:'tong_gia_tri'},
-      {name: 'Tên khách',prop:'ten_doi_tuong'},
-      {name: 'Địa chỉ',prop:'dia_chi'},
-      {name: 'Điện thoại',prop:'dien_thoai'},
-      {name: 'Người bán',prop:'ten_nhan_vien'}
+      {name:'Mã kho',prop:'ma_kho'},
+      {name: 'Loại hàng',prop: 'ten_loai_hang'},
+      {name: 'Mã hàng',prop:'ma_hang'},
+      {name: 'Đvt',prop:'ten_dvt'},
+      {name: 'Giá bán buôn',prop:'gia_ban_buon'},
+      {name: 'Giá bán lẻ',prop:'gia_ban_le'}
     ];
     for (let i in this._customTable.columns) {
       let column = this._customTable.columns[i];
@@ -61,17 +61,15 @@ export class HoaDonBanPage {
         dir: '',
       });
     }
-    this.getHoaDonBans();
+    this.getHangTonDauKys();
   }
   public onEventTable(event){
-    if(event.type == "click"){
-      this.viewDetail(event.row);
-    }
+    
   }
 
   public onChangePageTable(event){
     this._dataParams.page = event.offset + 1;
-    this.getHoaDonBans();
+    this.getHangTonDauKys();
   }
 
   public onSortTable(event){
@@ -88,23 +86,23 @@ export class HoaDonBanPage {
      }else{
        this._dataParams.sort = '-'+event.column.prop;
      }
-     this.getHoaDonBans();
+     this.getHangTonDauKys();
   }
 
-  public getHoaDonBans(){
+  public getHangTonDauKys(){
     this._customTable.rows = [];
-  	this._hoaDonBans = null;
-  	this.hoaDonBanProvider.getAllHoaDonBans(this._dataParams).subscribe(res=>{
-  		this._hoaDonBans = <HoaDonBan[]>res.data;
-      for (let i in this._hoaDonBans) {
-        let hoaDonBan = this._hoaDonBans[i];
-        this._customTable.rows.push({hoa_don_ban_id: hoaDonBan.hoa_don_ban_id,
-            ngay: hoaDonBan.ngay,
-            tong_gia_tri: (new CurrencyPipe('vi')).transform( hoaDonBan.tong_gia_tri,'đ'),
-            ten_doi_tuong: hoaDonBan.ten_doi_tuong,
-            dia_chi: hoaDonBan.dia_chi,
-            dien_thoai: hoaDonBan.dien_thoai,
-            ten_nhan_vien: hoaDonBan.ten_nhan_vien
+  	this._hangTonDauKys = null;
+  	this.hangTonDauKyProvider.getAllHangTonDauKys(this._dataParams).subscribe(res=>{
+      console.log(res);
+  		this._hangTonDauKys = <HangTonDauKy[]>res.data;
+      for (let i in this._hangTonDauKys) {
+        let hangTonDauKy = this._hangTonDauKys[i];
+        this._customTable.rows.push({ma_kho: hangTonDauKy.ma_kho,
+            ten_loai_hang: hangTonDauKy.ten_loai_hang,
+            ma_hang: hangTonDauKy.ma_hang,
+            ten_dvt: hangTonDauKy.ten_dvt,
+            gia_ban_buon: (new CurrencyPipe('vi')).transform( hangTonDauKy.gia_ban_buon,'đ'),
+            gia_ban_le: (new CurrencyPipe('vi')).transform( hangTonDauKy.gia_ban_le,'đ'),
           });
         this._customTable.currentPage = res.currentPage;
         this._customTable.pageCount = res.pageCount;
@@ -124,9 +122,6 @@ export class HoaDonBanPage {
   	})
   }
 
-  public viewDetail(hoaDonBan: HoaDonBan){
-    let modal = this.modalCtrl.create(ViewHoaDonBanPage,hoaDonBan);
-    modal.present();
-  }
+  
 
 }

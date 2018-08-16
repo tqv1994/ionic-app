@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import { HttpProvider } from '../http/http';
@@ -9,19 +9,19 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { RestProvider} from './../rest/rest';
 import { RestUserProvider } from './../rest-user/rest-user';
-import { HoaDonBan } from './../../models/hoa-don-ban';
+import { HangTonDauKy } from './../../models/hang-ton-dau-ky';
 /*
-  Generated class for the HoaDonBanProvider provider.
+  Generated class for the HangTonDauKyProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class HoaDonBanProvider extends RestProvider{
+export class HangTonDauKyProvider extends RestProvider{
 
   constructor(public http: HttpProvider, private restUser: RestUserProvider) {
   	super();
-    console.log('Hello HoaDonBanProvider Provider');
+    console.log('Hello HangTonDauKyProvider Provider');
   }
 
   private getHeaders():HttpHeaders {
@@ -30,22 +30,21 @@ export class HoaDonBanProvider extends RestProvider{
     });
   }
 
-  // GET /v1/hoa-don-ban
-    public getAllHoaDonBans(params?:object){
+  // GET /v1/hang-ton-dau-ky
+    public getAllHangTonDauKys(params?:object){
         let headers = this.getHeaders();
 
         return this.http.get(
-            this.apiUrl+'hoa-don-ban',params,
+            this.apiUrl+'hang-ton-dau-ky',params,
             {
                 headers: headers,
-                observe: 'response'// get response headers
+                observe: 'response' // get response headers
             }
         ).pipe(
         	  map(response => response)
             ,map((response) => {
-                let headersRes = new HttpHeaderResponse( );
                 return {
-                    data: <HoaDonBan[]> response.body.data,
+                    data: <HangTonDauKy[]> response.body.data,
                     currentPage: parseInt(response.headers.get('x-pagination-current-page')),
                     pageCount: parseInt(response.headers.get('x-pagination-page-count')),
                     perPage: parseInt(response.headers.get('x-pagination-per-page')),
@@ -57,19 +56,19 @@ export class HoaDonBanProvider extends RestProvider{
             
     }
 
-    // GET /v1/hoa-don-ban/1
-    public getHoaDonBan(id: string,params?:object){
+    // GET /v1/hang-ton-dau-ky/1
+    public getHangTonDauKy(id: string,params?:object){
       let headers = this.getHeaders();
 
         return this.http.get(
-            this.apiUrl+'hoa-don-ban/'+id,params,
+            this.apiUrl+'hang-ton-dau-ky/'+id,params,
             {
                 headers: headers
             }
         ).pipe(
             map(response => response)
             ,map((response) => {
-                return <HoaDonBan>response.data;
+                return <HangTonDauKy>response.data;
             })
             ,catchError(this.handleError)
         );

@@ -6,17 +6,17 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="openPage(homePage)">
-        Home
+      <button ion-item (click)="openPage(page.home)">
+        Trang chủ
       </button>
-      <button ion-item (click)="openPage(friendsPage)">
-        Friends
+      <button ion-item (click)="openPage(page.hoaDonBan)">
+        Hóa đơn bán
       </button>
-      <button ion-item (click)="openPage(eventsPage)">
-        Events
+      <button ion-item (click)="openPage(page.hangTonDauKy)">
+        Hàng tồn kho
       </button>
-      <button ion-item (click)="closeMenu()">
-        Close Menu
+      <button ion-item (click)="openPage(page.logout)">
+        Đăng xuất
       </button>
     </ion-list>
   </ion-content>

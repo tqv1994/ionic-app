@@ -15,11 +15,12 @@ export class HttpAngularProvider {
         if(!requestOptions.headers){
             requestOptions.headers = new HttpHeaders();
         }
+
         // requestOptions.params = params ? this.createSearchParams(params) : requestOptions.params;
         if(params)
             url = url + '?' + this.JSON_to_URLEncoded(params);
         
-        return this.http.get(url, requestOptions).map(resp => resp);
+        return this.http.get(url,requestOptions).map(resp => resp);
     }
 
     public post(url, params: any, options: any = {}) {

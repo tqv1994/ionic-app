@@ -17,16 +17,19 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { LogOutPage } from '../pages/log-out/log-out';
 import { HoaDonBanPage } from '../pages/hoa-don-ban/hoa-don-ban';
 import { ViewHoaDonBanPage } from '../pages/hoa-don-ban/view-hoa-don-ban';
+import { HangTonDauKyPage } from '../pages/hang-ton-dau-ky/hang-ton-dau-ky';
 import { RestProvider } from '../providers/rest/rest';
 import { RestUserProvider } from '../providers/rest-user/rest-user';
 import { HttpProvider } from '../providers/http/http';
 import { HttpAngularProvider } from '../providers/http-angular/http-angular';
 import { HttpNativeProvider } from '../providers/http-native/http-native';
 import { HoaDonBanProvider } from '../providers/hoa-don-ban/hoa-don-ban';
+import { HangTonDauKyProvider } from '../providers/hang-ton-dau-ky/hang-ton-dau-ky';
 
-// đăng locale vi để sử dụng cho CurrencyPipe
+// đăng ký locale vi để sử dụng cho CurrencyPipe
 registerLocaleData(localeVi);
 
 @NgModule({
@@ -34,8 +37,10 @@ registerLocaleData(localeVi);
     MyApp,
     HomePage,
     LoginPage,
+    LogOutPage,
     HoaDonBanPage,
-    ViewHoaDonBanPage
+    ViewHoaDonBanPage,
+    HangTonDauKyPage
   ],
   imports: [
     BrowserModule,
@@ -53,8 +58,10 @@ registerLocaleData(localeVi);
     MyApp,
     HomePage,
     LoginPage,
+    LogOutPage,
     HoaDonBanPage,
-    ViewHoaDonBanPage
+    ViewHoaDonBanPage,
+    HangTonDauKyPage
   ],
   providers: [
     StatusBar,
@@ -66,7 +73,8 @@ registerLocaleData(localeVi);
     HttpProvider,
     HttpAngularProvider,
     HttpNativeProvider,
-    HoaDonBanProvider
+    HoaDonBanProvider,
+    HangTonDauKyProvider
   ]
 })
 export class AppModule {}
