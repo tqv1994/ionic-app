@@ -27,9 +27,8 @@ export class RestUserProvider extends RestProvider {
   	public redirectURL = '';
 
   	public login(username, password) {
-        return this.http.post(this.apiUrl+'user/login',{"LoginForm":{ "username": username,"password": password}}).pipe(
+        return this.http.post(this.apiUrl+'user/login',{"LoginForm":{ "username": username,"password": password}},{}).pipe(
             map(res=>res),map(res=>{
-
               if (res.success) {
                     localStorage.setItem('backend-token', res.data.access_token);
                     this.loggedIn = true;

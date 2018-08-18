@@ -20,7 +20,7 @@ export class HttpAngularProvider {
         if(params)
             url = url + '?' + this.JSON_to_URLEncoded(params);
         
-        return this.http.get(url,requestOptions).map(resp => resp);
+        return this.http.get(url,requestOptions).map(resp => <any>resp);
     }
 
     public post(url, params: any, options: any = {}) {
@@ -34,7 +34,7 @@ export class HttpAngularProvider {
         // requestOptions.headers.append("Access-Control-Allow-Credentials",'false');
         let body = this.JSON_to_URLEncoded(params);
 
-        return this.http.post(url, body, requestOptions).map(resp => resp);
+        return this.http.post(url, body, requestOptions).map(resp => <any>resp);
     }
 
     private createSearchParams(params: any) {

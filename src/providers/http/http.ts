@@ -6,18 +6,18 @@ import {HttpNativeProvider} from '../http-native/http-native';
 
 @Injectable()
 export class HttpProvider {
-    private http: HttpNativeProvider | HttpAngularProvider;
-
+    // private http: HttpNativeProvider | HttpAngularProvider;
+    private http: HttpAngularProvider;
     constructor(private platform: Platform, private angularHttp: HttpAngularProvider, private nativeHttp: HttpNativeProvider) {
         // this.http = this.platform.is('ios') || this.platform.is('android') ? this.nativeHttp : this.angularHttp;
         this.http = this.angularHttp;
     }
 
-    public get(url: string, params?: any, options?: any) {
+    public get(url: string, params: any, options: any) {
         return this.http.get(url, params, options);
     }
 
-    public post(url: string, params?: any, options?: any) {
+    public post(url: string, params: any, options: any) {
         return this.http.post(url, params, options);
     }
 }

@@ -77,7 +77,6 @@ export class LoginPage {
         this._restUserProvider.login(elementValues.username, elementValues.password)
             .subscribe(
                 result => {
-                    console.log(result);
                     if(result.success) {
 
                         this.navCtrl.push(HoaDonBanPage);

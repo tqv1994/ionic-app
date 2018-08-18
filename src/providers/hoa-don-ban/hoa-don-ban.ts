@@ -41,15 +41,15 @@ export class HoaDonBanProvider extends RestProvider{
                 observe: 'response'// get response headers
             }
         ).pipe(
-        	  map(response => response)
+              map(response => response)
             ,map((response) => {
-                let headersRes = new HttpHeaderResponse( );
+                console.log(response.headers.keys());
                 return {
                     data: <HoaDonBan[]> response.body.data,
-                    currentPage: parseInt(response.headers.get('x-pagination-current-page')),
-                    pageCount: parseInt(response.headers.get('x-pagination-page-count')),
-                    perPage: parseInt(response.headers.get('x-pagination-per-page')),
-                    totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+                    currentPage: parseInt(response.headers.get('X-Pagination-Current-Page')),
+                    pageCount: parseInt(response.headers.get('X-Pagination-Page-Count')),
+                    perPage: parseInt(response.headers.get('X-Pagination-Per-Page')),
+                    totalCount: parseInt(response.headers.get('X-Pagination-Total-Count'))
                 };
             })
             ,catchError(this.handleError)

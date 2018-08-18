@@ -96,6 +96,7 @@ export class HoaDonBanPage {
   	this._hoaDonBans = null;
   	this.hoaDonBanProvider.getAllHoaDonBans(this._dataParams).subscribe(res=>{
   		this._hoaDonBans = <HoaDonBan[]>res.data;
+      console.log(res);
       for (let i in this._hoaDonBans) {
         let hoaDonBan = this._hoaDonBans[i];
         this._customTable.rows.push({hoa_don_ban_id: hoaDonBan.hoa_don_ban_id,

@@ -13,6 +13,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpClientModule 
 import {Storage, IonicStorageModule} from '@ionic/storage';
 import {HTTP} from '@ionic-native/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+// /import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -31,6 +32,14 @@ import { HangTonDauKyProvider } from '../providers/hang-ton-dau-ky/hang-ton-dau-
 
 // đăng ký locale vi để sử dụng cho CurrencyPipe
 registerLocaleData(localeVi);
+
+// class CameraMock extends Camera {
+//   getPicture(options) {
+//     return new Promise((resolve, reject) => {
+//       resolve("BASE_64_ENCODED_DATA_GOES_HERE");
+//     })
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -74,7 +83,8 @@ registerLocaleData(localeVi);
     HttpAngularProvider,
     HttpNativeProvider,
     HoaDonBanProvider,
-    HangTonDauKyProvider
+    HangTonDauKyProvider,
+    // { provide: Camera, useClass: CameraMock }
   ]
 })
 export class AppModule {}
