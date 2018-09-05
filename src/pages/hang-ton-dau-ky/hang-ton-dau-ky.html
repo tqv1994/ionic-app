@@ -34,18 +34,14 @@
         [rowHeight]="50"
         [rows]="_customTable.rows"
         [columns]="_customTable.columns"
-        [limit]="_customTable.perPage"
-        [count]="_customTable.totalCount"
-        [offset]="_customTable.offset"
+        [limit]="10"
         [sorts]="_customTable.sorts"
         [columnMode]="flex"
         [scrollbarV]="false"
         [scrollbarH]="true"
-        [externalPaging]="true"
-        [externalSorting]="true"
+        [externalPaging]="false"
+        [externalSorting]="false"
         [loadingIndicator]="true"
-        (page)="onChangePageTable($event)"
-        (sort)="onSortTable($event)"
         (activate)="onEventTable($event)">
        
       </ngx-datatable>

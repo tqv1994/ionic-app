@@ -34,15 +34,14 @@
        	[rowHeight]="50"
         [rows]="_customTable.rows"
         [columns]="_customTable.columns"
-        
+        [limit]="10"
         [columnMode]="flex"
         [scrollbarV]="false"
         [scrollbarH]="true"
         [externalPaging]="false"
         [externalSorting]="false"
         [loadingIndicator]="true"
-        (page)="onChangePageTable($event)"
-        (sort)="onSortTable($event)"
+        
         (activate)="onEventTable($event)">
        
       </ngx-datatable>
